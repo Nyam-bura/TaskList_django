@@ -1,15 +1,8 @@
-# from django.db import models
+# from asyncio import tasks
 from django.db import models
-# from datetime import date
 from django.contrib.auth.models import AbstractUser
-# from Task.admin import Combinedtask_subtask
-
-# import django
-# django.setup()
-
-# from Task.models import Task
-
-
+# from django.utils.translation import gettext_lazy as _
+# from Task.admin import SubTaskAdmin
 
 COUNTY_CHOICES=(
      ('uasin_gishu','Uasin Gishu'),
@@ -40,8 +33,9 @@ class User(AbstractUser):
     id_number = models.CharField(max_length=100)
     id_document_type=models.CharField(max_length=50,choices=ID_DOCUMENT)
 
-class Task(models.Model):
-    task_subtask = models.ForeignKey(User,on_delete=models.CASCADE)
+
+class DataModel(models.Model):
+    task_name = models.CharField(max_length=100)
     description = models.TextField()
     title= models.CharField(max_length=256)
     assigned_to = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_assigned_to")
@@ -49,16 +43,33 @@ class Task(models.Model):
     creation_date = models.DateField(auto_now=False)
     due_date = models.DateField(blank=True,null=True)
     completed = models.CharField(max_length=100,choices=STATUS_CHOICE)
+    
+
+# class Task(models.Model):
+#     class Meta:
+#         ordering = ['task']
+        
+class SubTask(models.Model): 
+    task = models.ForeignKey(DataModel,on_delete=models.CASCADE,related_name="task")
+    metadata =models.JSONField()
 
 
-class SubTask(models.Model):
-    task_subtask = models.ForeignKey(User,on_delete=models.CASCADE)
-    description = models.TextField()
-    due_date = models.DateField(blank=True,null=True)
-    creation_date = models.ForeignKey(Task,on_delete=models.CASCADE,related_name="_date")
-    assigned_to = models.ForeignKey(User,on_delete=models.CASCADE,related_name="_assigned_to")
-    assigned_by = models.ForeignKey(User,on_delete=models.CASCADE,related_name="_user")
-    task = models.ForeignKey(Task,on_delete=models.CASCADE,related_name="_task",default=True)
+class Attribute(models.Model):
+    task_name = models.CharField(max_length=100)
+    assigned_to = models.ForeignKey(User,on_delete=models.CASCADE,related_name="_assigned")
+
+
+# class Task(models.Model):
+#     class Meta:
+#         abstract = True    
+
+
+
+
+
+
+
+
 
 # class Combinedtask_subtask(BaseException):
 #     description = models.TextField()
@@ -86,8 +97,16 @@ class SubTask(models.Model):
 #         ordering = ['description']
         
 
+#     task = models.ForeignKey(User,on_delete=models.CASCADE,related_name="task")
+#     jsonfield =jsonfield()
+
+# def __str__(self):
+#     return self.task     
+# DataModel.objects.create(description='Creating Models',json={'id':1})
+# DataModel.objects.create(task='Task_list',description='Create class',json={'id':{1,2}})
+
+# var_1 = DataModel.objects.filter(json__exact={'id':1})
+# var_2 = DataModel.objects.get(json__exact={'id':{1,2}})
 
 
-class Attribute(models.Model):
-    task_name = models.CharField(max_length=100)
-    assigned_to = models.ForeignKey(User,on_delete=models.CASCADE,related_name="_assigned")
+

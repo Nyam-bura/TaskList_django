@@ -1,4 +1,4 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 # Create your views here.
 # from django.shortcuts import redirect,render
 # from Task.models import MyUser
@@ -33,7 +33,7 @@ class SignUpApiView(generics.GenericAPIView):
 	def post(self,request):
 		serializer = self.get_serializer(data=request.data)
 		serializer.is_valid(raise_exception=True)
-		user= authenticate(request,firstname=serializer.data["firstname"],lastname=serializer.data["lastname"],password=serializer.data["password"],confirm_password=serializer.data["confirm_password"])
+		user = authenticate(request,firstname=serializer.data['firstname'],lastname=serializer.data['lastname'],password=serializer.data['password'],confrim_password=serializer.data['confirm_password'])
 		if user is not None:
 			refresh = RefreshToken.for_user(user)
 			return Response(
@@ -41,5 +41,5 @@ class SignUpApiView(generics.GenericAPIView):
 			)
 		else:
 			return Response(
-				{"Invalid Details"}
+				{'Invalid Details'}
 			)
