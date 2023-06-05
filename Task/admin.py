@@ -1,8 +1,10 @@
+from msilib.schema import SelfReg
+from typing import Self
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
-from Task.models import SubTask,Attribute,User,Task
+from Task.models import SubTask,Attribute,User,Task,DataModel
 User = get_user_model()
 
 class UserAdmin(UserAdmin):
@@ -33,6 +35,19 @@ admin.site.register(Task,TaskAdmin)
     # list_display = ['task_name','description','title','creation_date','due_date','completed']
 
 # admin.site.register(DataModel,DataModelAdmin)
+
+class DataModelAdmin(admin.ModelAdmin):
+    model=DataModel
+    jsonfield = ['description','due_date','creation_date','assigned_to','assigned_by','task']
+
+admin.site.register(DataModel, DataModelAdmin)
+
+
+
+
+
+
+# Self.register[Combinedtask_subtask] = Combinedtask_subtaskAdmin(Combinedtask_subtask,Self)
 
 class AttributeAdmin(admin.ModelAdmin):
     model = Attribute

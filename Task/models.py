@@ -45,6 +45,31 @@ class DataModel(models.Model):
     creation_date = models.DateField(auto_now=False)
     due_date = models.DateField(blank=True,null=True)
     completed = models.CharField(max_length=100,choices=STATUS_CHOICE)
+    
+
+# class Task(models.Model):
+#     class Meta:
+#         ordering = ['task']
+        
+class SubTask(models.Model): 
+    task = models.ForeignKey(DataModel,on_delete=models.CASCADE,related_name="task")
+    metadata =models.JSONField()
+
+
+class Attribute(models.Model):
+    task_name = models.CharField(max_length=100)
+    assigned_to = models.ForeignKey(User,on_delete=models.CASCADE,related_name="_assigned")
+
+
+# class Task(models.Model):
+#     class Meta:
+#         abstract = True    
+
+
+
+
+
+
 
 class Task(DataModel):
     class Meta:
