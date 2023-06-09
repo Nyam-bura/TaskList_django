@@ -1,5 +1,4 @@
-from msilib.schema import SelfReg
-from typing import Self
+# from typing import Self
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
@@ -18,13 +17,13 @@ admin.site.register(User, UserAdmin)
 
 class SubTaskAdmin(admin.ModelAdmin):
     model = SubTask
-    list_display = ['task_id','task_name','description','assigned_to','assigned_by','creation_date','due_date','completed']
+    list_display = ['task_name','description','assigned_to','assigned_by','creation_date','due_date','status']
 
 admin.site.register(SubTask,SubTaskAdmin)
 
 class TaskAdmin(admin.ModelAdmin):
     model = Task
-    list_display = ['task_id','task_name','description','assigned_to','assigned_by','creation_date','due_date','completed']
+    list_display = ['task_name','description','assigned_to','assigned_by','creation_date','due_date','status']
 
 admin.site.register(Task,TaskAdmin)
 
@@ -32,15 +31,22 @@ admin.site.register(Task,TaskAdmin)
 # class DataModelAdmin(admin.ModelAdmin):
     # model=DataModel
     # jsonfield = [   'task_name','description','title','creation_date','due_date','completed']
-    # list_display = ['task_name','description','title','creation_date','due_date','completed']
+    # list_display = ['task_name','description','assigned_to','assigned_by','creation_date','due_date','completed_status']
 
 # admin.site.register(DataModel,DataModelAdmin)
 
-class DataModelAdmin(admin.ModelAdmin):
-    model=DataModel
-    jsonfield = ['description','due_date','creation_date','assigned_to','assigned_by','task']
 
-admin.site.register(DataModel, DataModelAdmin)
+class AttributeAdmin(admin.ModelAdmin):
+    model = Attribute
+    list_display = ['task_name','assigned_to']
+
+admin.site.register(Attribute,AttributeAdmin)
+
+# class DataModelAdmin(admin.ModelAdmin):
+#     model=DataModel
+#     jsonfield = ['description','due_date','creation_date','assigned_to','assigned_by','task']
+
+# admin.site.register(DataModel, DataModelAdmin)
 
 
 
@@ -49,9 +55,5 @@ admin.site.register(DataModel, DataModelAdmin)
 
 # Self.register[Combinedtask_subtask] = Combinedtask_subtaskAdmin(Combinedtask_subtask,Self)
 
-class AttributeAdmin(admin.ModelAdmin):
-    model = Attribute
-    list_display = ['task_name','assigned_to']
 
-admin.site.register(Attribute,AttributeAdmin)
 

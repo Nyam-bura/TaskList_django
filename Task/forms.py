@@ -1,5 +1,5 @@
 from django import forms
-from Task.models import SubTask,Task
+from Task.models import Task
 
 
 # class SubTaskRegistrationForm(forms.ModelForm):

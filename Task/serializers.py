@@ -1,6 +1,5 @@
 from rest_framework import serializers
-import Task
-from .models import SubTask
+from .models import Task, SubTask
 
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
@@ -12,30 +11,24 @@ class SignUpSerializer(serializers.Serializer):
     password = serializers.CharField()
     confirm_password = serializers.CharField()
 
-class TaskSerializer(serializers.Serializer):
-    task_id = serializers.IntegerField()
-    task_name = serializers.CharField()
-    description = serializers.CharField()
-    assigned_to = serializers.CharField()
-    assigned_by = serializers.CharField()
-    creation_date = serializers.CharField()
-    due_date = serializers.CharField()
-    completed = serializers.CharField()
+class SubTaskSerializer(serializers.ModelSerializer):
+    assigned_to_name=serializers.CharField(source='assigned_to.username',read_only=True)
+    assigned_by_name = serializers.CharField(source='assigned_by.username',read_only=True)
+    class Meta:
+        model = SubTask
+        exclude = ['assigned_to','assigned_by']
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    sub_task= SubTaskSerializer(many=True,read_only=True,source='data')
+    assigned_to_name = serializers.CharField(source='assigned_to.username',read_only=True)
+    assigned_by_name = serializers.CharField(source='assigned_by.username',read_only=True)
+    class Meta:
+        model = Task
+        exclude = ['assigned_to','assigned_by']
 
     def create(self, validated_data):
-        return Task.objects.create(**validated_data)
-
-class SubTaskSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = SubTask
-        fields = ('task_id', 'task_name', 'assigned_to', 'assigned_by', 'description', 'creation_date', 'due_date', 'completed',)
-
-class SubTaskResSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = SubTask
-        fields = '__all__'
+        return Task.objects.create(**validated_data)    
 
 
 
