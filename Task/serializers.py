@@ -23,7 +23,7 @@ class SubTaskSerializer(serializers.ModelSerializer):
     # assigned_by_name = SignUpSerializer(read_only=True)
     class Meta:
         model = SubTask
-        exclude = ['assigned_to','assigned_by']
+        fields = '__all__'
 
 class TaskSerializer(serializers.ModelSerializer):
     sub_task= SubTaskSerializer(many=True,read_only=True,source='data')

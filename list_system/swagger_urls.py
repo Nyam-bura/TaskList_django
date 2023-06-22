@@ -11,10 +11,7 @@ class CustomOpenAPISchemaGenerator(OpenAPISchemaGenerator):
         schema = super().get_schema(*args, **kwargs)
         schema.basePath = '/api/'
         return schema
-
-
 GENERATOR_CLASS = CustomOpenAPISchemaGenerator
-
 
 schema_view = get_schema_view(
     info=openapi.Info(

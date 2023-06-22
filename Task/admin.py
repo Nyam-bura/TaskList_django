@@ -18,7 +18,7 @@ admin.site.register(User, UserAdmin)
 
 class SubTaskAdmin(admin.ModelAdmin):
     model = SubTask
-    list_display = ['task_name','description','creation_date','due_date','status']
+    list_display = ['task_name','description','assigned_to','assigned_by','creation_date','due_date','status']
 
 admin.site.register(SubTask,SubTaskAdmin)
 
