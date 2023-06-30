@@ -9,7 +9,7 @@ class SignUpSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(required=True)
     class Meta:
         model = User
-        fields =['username','phone_number', 'email', 'password', 'id_number', 'county', 'id_document_type', 'confirm_password']
+        fields = ['username','phone_number','email','password','id_number','county','id_document_type','confirm_password']
                  
 class SignUpResSerializer(serializers.ModelSerializer):
     class Meta: 
