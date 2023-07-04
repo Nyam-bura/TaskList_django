@@ -85,14 +85,3 @@ class SignUpApiView(generics.CreateAPIView):
         self.serializer_class = SignUpResSerializer
         serialized_res = self.serializer_class(new_user)
         return Response(data=serialized_res.data, status=201)
- 
-class ExampleView():
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get (self,request):
-        content = {
-            'user':str(request.user),
-            'auth':str(request.auth)    
-             }
-        return Response (content)

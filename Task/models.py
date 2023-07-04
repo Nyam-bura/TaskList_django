@@ -135,6 +135,4 @@ class SubTask(DataModel):
 
 class Attribute(models.Model):
     task_name = models.CharField(max_length=100)
-    assigned_to = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="_assigned"
-    )
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name="_assigned")

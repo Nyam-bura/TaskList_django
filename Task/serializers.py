@@ -26,7 +26,7 @@ class SubTaskSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TaskSerializer(serializers.ModelSerializer):
-    sub_task= SubTaskSerializer(many=True,read_only=True,source='data')
+    sub_task = SubTaskSerializer(many=True,read_only=True,source='data')
     assigned_to_name = serializers.CharField(source='assigned_to.username',read_only=True)
     assigned_by_name = serializers.CharField(source='assigned_by.username',read_only=True)
 
@@ -35,4 +35,38 @@ class TaskSerializer(serializers.ModelSerializer):
         exclude = ['assigned_to','assigned_by']
 
     def create(self, validated_data):
-        return Task.objects.create(**validated_data)        
+        return Task.objects.create(**validated_data)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    # sub_task= SubTaskSerializer(many=True,read_only=True,source='data')
+    # assigned_to_name = serializers.CharField(source='assigned_to.username',read_only=True)
+    # assigned_by_name = serializers.CharField(source='assigned_by.username',read_only=True)
+
+    # class Meta:
+    #     model = Task
+    #     exclude = ['assigned_to','assigned_by']
+
+    # def create(self, validated_data):
+    #     return Task.objects.create(**validated_data)        
